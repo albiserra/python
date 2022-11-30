@@ -55,6 +55,7 @@ class IPaddress():
         lista_stringhe=self.ip_notazione_dec.split(".")
         return [int(gruppo) for gruppo in lista_stringhe]
 
+    """
     def ip_broadcast(self, subnet_mask):
         cont=0
         tmp=int(subnet_mask[1:])
@@ -67,6 +68,32 @@ class IPaddress():
                     ip_bin[cont]='1'
                 cont=cont+1
         return ip_bin
+        """
+
+    def ip_broadcast(self,subnet_mask):
+        num = int(subnet_mask[1:])
+        sub_bin = ""
+        sub_bin = '0'*num + '1'*(32-num)
+        """
+        for w in range(0,32):
+            if(w < num):
+                sub_bin = sub_bin+"0"
+            else:
+                sub_bin = sub_bin+"1"
+        """
+        temp = ""
+        for a in range(0,32):
+            if(a % 8 == 0):
+                temp =temp + "."
+            else:
+                pass
+            if(self.ip_notazione_bin[a] == "0" and sub_bin[a] == "0"):
+                temp = temp + '0'
+            else:
+                temp = temp + '1'
+
+        self.ip_Broadcast=temp[1:]    
+        return self.ip_Broadcast
             
 
 
@@ -79,7 +106,7 @@ def main():
     print(indirizzoIP.dec2bin())
     print(indirizzoIP.toListBin())
     print(indirizzoIP.bin2dec())
-    print(indirizzoIP.ip_broadcast(sub))
+    print(str(indirizzoIP.ip_broadcast(sub)))
 
 if __name__ == "__main__":
     main()
